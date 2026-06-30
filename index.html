@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/jpg" href="trullo/icon.jpg" />
+  <title>Trullo Piccirillo — San Michele Salentino</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #0A0A0F;
+      --paper:  #F5F0E8;
+      --gold:   #C8A96E;
+      --earth:  #2A1F14;
+      --olive:  #6B9E8A;
+      --muted:  #8A8070;
+      --rule:   rgba(200,169,110,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    .display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      line-height: .92;
+      letter-spacing: -.02em;
+    }
+    .serif { font-family: 'Cormorant Garamond', serif; }
+    .label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      background: rgba(10,10,15,.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+      transition: background .3s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: .06em;
+      color: var(--paper);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(245,240,232,.55);
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--gold);
+      color: var(--earth) !important;
+      font-size: .72rem !important;
+      font-weight: 600 !important;
+      padding: .55rem 1.3rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: #d4b87a !important; color: var(--earth) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('trullo/hero.jpeg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .hero:hover .hero-bg { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,10,15,.92) 0%,
+        rgba(10,10,15,.45) 50%,
+        rgba(10,10,15,.1) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      padding: 0 2.5rem 3.5rem;
+      max-width: 1100px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow i { color: var(--gold); font-size: .75rem; }
+    .hero-title {
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      color: var(--paper);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(245,240,232,.65);
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 2.2rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: var(--gold);
+      color: var(--earth);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .9rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary:hover { background: #d4b87a; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      border: 1px solid rgba(245,240,232,.25);
+      color: rgba(245,240,232,.8);
+      font-size: .8rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .9rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-scroll {
+      position: absolute;
+      right: 2.5rem;
+      bottom: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      color: rgba(245,240,232,.35);
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ─── SECTION SHELL ─── */
+    .section { padding: 7rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ─── INTRO QUOTE ─── */
+    .intro {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .intro-aside .label { display: block; margin-bottom: .8rem; }
+    .intro-aside hr { border: none; border-top: 1px solid var(--rule); margin: 1.2rem 0; }
+    .intro-aside p { font-size: .82rem; color: var(--muted); line-height: 1.7; }
+    .intro-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .intro-quote strong { font-weight: 600; font-style: normal; color: var(--earth); }
+
+    /* ─── DISCONNECT ─── */
+    .disconnect {
+      background: var(--earth);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+    .disconnect-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('trullo/esterni_1.avif');
+      background-size: cover;
+      background-position: center;
+      opacity: .07;
+    }
+    .disconnect-inner { position: relative; }
+    .disconnect-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .disconnect-title {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: .92;
+      color: var(--paper);
+    }
+    .disconnect-title em { color: var(--gold); font-style: italic; }
+    .disconnect-lead {
+      color: rgba(245,240,232,.5);
+      line-height: 1.75;
+      font-size: .9rem;
+      max-width: 360px;
+      align-self: end;
+    }
+
+    .signal-icon {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      margin-bottom: 2rem;
+    }
+    .signal-bar {
+      width: 5px;
+      border-radius: 1px;
+      background: var(--gold);
+    }
+    .signal-bar:nth-child(1) { height: 6px; opacity: .9; }
+    .signal-bar:nth-child(2) { height: 10px; opacity: .18; }
+    .signal-bar:nth-child(3) { height: 15px; opacity: .18; }
+    .signal-bar:nth-child(4) { height: 21px; opacity: .18; }
+
+    .disconnect-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .dc-card {
+      background: var(--earth);
+      padding: 2.5rem 2rem;
+      transition: background .25s;
+    }
+    .dc-card:hover { background: rgba(245,240,232,.04); }
+    .dc-card-icon {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--rule);
+      color: var(--gold);
+      font-size: .9rem;
+      margin-bottom: 1.4rem;
+    }
+    .dc-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--paper);
+      margin-bottom: .7rem;
+    }
+    .dc-card p {
+      font-size: .82rem;
+      color: rgba(245,240,232,.45);
+      line-height: 1.75;
+    }
+
+    .disconnect-note {
+      margin-top: 2.5rem;
+      padding: 1.8rem 2rem;
+      border: 1px solid rgba(200,169,110,.15);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .disconnect-note i { color: var(--gold); margin-top: .1rem; }
+    .disconnect-note p {
+      font-size: .82rem;
+      color: rgba(245,240,232,.5);
+      line-height: 1.75;
+    }
+    .disconnect-note strong { color: rgba(245,240,232,.8); font-weight: 500; }
+
+    /* ─── GALLERY ─── */
+    .gallery { background: #F0EBE0; }
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .gallery-title { font-size: clamp(2.2rem, 4vw, 3.5rem); }
+    .gallery-sub { font-size: .82rem; color: var(--muted); max-width: 280px; text-align: right; line-height: 1.6; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 6px;
+    }
+    .g-cell {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .g-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+      display: block;
+    }
+    .g-cell:hover img { transform: scale(1.05); }
+    .g-cell-label {
+      position: absolute;
+      inset-x-0; bottom: 0;
+      padding: 1rem 1.2rem .8rem;
+      background: linear-gradient(to top, rgba(10,10,15,.8), transparent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .9rem;
+      color: rgba(245,240,232,.85);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .g-cell:hover .g-cell-label { opacity: 1; }
+    .g-c1 { grid-column: span 5; grid-row: span 2; }
+    .g-c2 { grid-column: span 4; }
+    .g-c3 { grid-column: span 3; }
+    .g-c4 { grid-column: span 3; }
+    .g-c5 { grid-column: span 4; }
+
+    /* carousel */
+    .carousel-wrap {
+      margin-top: 4rem;
+      position: relative;
+    }
+    .carousel-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .carousel-label .label { color: var(--muted); }
+    .carousel-rule { flex: 1; height: 1px; background: var(--rule); }
+
+    .carousel-viewport {
+      overflow: hidden;
+      border-radius: 0;
+      aspect-ratio: 16/7;
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 0; left: 0;
+      padding: 1.4rem 2rem;
+      background: linear-gradient(to top, rgba(10,10,15,.75), transparent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(245,240,232,.9);
+      pointer-events: none;
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.2rem;
+    }
+    .carousel-dots {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    .c-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all .25s;
+    }
+    .c-dot.active {
+      background: var(--gold);
+      width: 22px;
+      border-radius: 3px;
+    }
+    .carousel-btns { display: flex; gap: .6rem; }
+    .c-btn {
+      width: 40px; height: 40px;
+      border: 1px solid #C8C0B0;
+      background: transparent;
+      color: var(--ink);
+      font-size: .85rem;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, color .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .c-btn:hover { border-color: var(--gold); background: var(--gold); color: var(--earth); }
+
+    /* ─── AMENITIES ─── */
+    .amenities-header {
+      margin-bottom: 3.5rem;
+    }
+    .amenities-title { font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: .6rem; }
+    .amenities-sub { color: var(--muted); font-size: .9rem; }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #D8D2C8;
+    }
+    .am-card {
+      background: var(--paper);
+      padding: 2.5rem 2rem;
+      transition: background .2s;
+    }
+    .am-card:hover { background: #EDE8DF; }
+    .am-icon {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .am-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .am-card p { font-size: .82rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── CONTACT ─── */
+    .contact { background: var(--ink); color: var(--paper); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-left h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: .95;
+      margin-bottom: 1.5rem;
+    }
+    .contact-left h2 em { color: var(--gold); font-style: italic; }
+    .contact-left p { font-size: .88rem; color: rgba(245,240,232,.45); line-height: 1.75; max-width: 340px; }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 1px; background: var(--rule); margin-top: 3rem; }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      padding: 1.6rem 1.8rem;
+      background: var(--ink);
+      text-decoration: none;
+      color: var(--paper);
+      transition: background .2s;
+    }
+    .contact-card:hover { background: #14141A; }
+    .contact-card-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+      font-size: .85rem;
+    }
+    .contact-card-meta span { display: block; }
+    .contact-card-meta .contact-type { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: .2rem; }
+    .contact-card-meta .contact-val { font-size: .9rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+    .contact-card-arrow { margin-left: auto; color: rgba(245,240,232,.2); font-size: .8rem; transition: color .2s, transform .2s; }
+    .contact-card:hover .contact-card-arrow { color: var(--gold); transform: translateX(3px); }
+
+    .contact-airbnb {
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      padding: 1.8rem;
+      background: rgba(200,169,110,.1);
+      border: 1px solid rgba(200,169,110,.25);
+      text-decoration: none;
+      color: var(--paper);
+      transition: background .2s;
+    }
+    .contact-airbnb:hover { background: rgba(200,169,110,.16); }
+    .contact-airbnb i { color: var(--gold); font-size: 1.1rem; }
+    .contact-airbnb .ab-label { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: .2rem; }
+    .contact-airbnb .ab-val { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; }
+    .contact-airbnb .contact-card-arrow { color: rgba(200,169,110,.4); }
+
+    .footer-bar {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bar span { font-size: .72rem; color: rgba(245,240,232,.2); letter-spacing: .06em; }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: rgba(245,240,232,.35);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { display: none; }
+      .section { padding: 4rem 1.2rem; }
+      .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .disconnect-header { grid-template-columns: 1fr; gap: 2rem; }
+      .disconnect-cards { grid-template-columns: 1fr; }
+      .gallery-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .gallery-sub { text-align: left; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 200px);
+      }
+      .g-c1 { grid-column: span 2; grid-row: span 1; }
+      .g-c2, .g-c3, .g-c4, .g-c5 { grid-column: span 1; }
+      .amenities-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-bar { flex-direction: column; gap: 1rem; }
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Trullo Piccirillo</a>
+    <ul class="nav-links">
+      <li><a href="#struttura">The Trullo</a></li>
+      <li><a href="#disconnetti">Disconnect</a></li>
+      <li><a href="#galleria">Gallery</a></li>
+      <li><a href="#servizi">Amenities</a></li>
+      <li><a href="#contatti">Contact</a></li>
+      <li><a href="tel:+393334371985" target="_blank" class="nav-cta"><i class="fa-regular fa-calendar"></i> Book Now</a></li>
+    </ul>
+    <a href="https://www.airbnb.it/rooms/8337874?check_in=2026-09-11&check_out=2026-09-13&guests=1&adults=1&s=67&unique_share_id=01592f18-244e-4b0c-a59d-aa28a2523b94" target="_blank" class="nav-cta" style="display:flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--earth);font-size:.72rem;font-weight:600;padding:.55rem 1.3rem;border-radius:2px;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;" id="navBookMd"><i class="fa-regular fa-calendar"></i> Book</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="fa-solid fa-location-dot" style="color:var(--gold);font-size:.75rem;"></i>
+        <span class="label" style="color:rgba(245,240,232,.55);">San Michele Salentino, Puglia</span>
+      </div>
+      <h1 class="display hero-title">Trullo<br><em>Piccirillo</em></h1>
+      <p class="hero-desc">
+        Authentic Apulian stone meets the silence of the upper Salento. A finely restored heaven for those who seek the essential — far from the noise, far from the signal.
+      </p>
+      <div class="hero-actions">
+        <a href="tel:+393334371985" class="btn-primary">
+          <i class="fa-solid fa-phone"></i> Book Directly
+        </a>
+        <a href="#contatti" class="btn-ghost">
+          <i class="fa-regular fa-envelope"></i> Get in Touch
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </header>
+
+  <!-- INTRO QUOTE -->
+  <section id="struttura" class="section intro">
+    <div class="section-inner intro-grid">
+      <div class="intro-aside">
+        <span class="label"><i class="fa-solid fa-landmark"></i>&ensp;The Property</span>
+        <hr />
+        <p>A centuries-old trullo recently restored with artisan care. Located in open countryside, minutes from the village of San Michele Salentino.</p>
+      </div>
+      <blockquote class="intro-quote">
+        "Every stone detail tells a centuries-old story, lovingly preserved. A space designed for <strong>absolute relaxation</strong> — where the countryside takes over, and so does your breathing."
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- DISCONNECT -->
+  <section id="disconnetti" class="section disconnect">
+    <div class="disconnect-bg"></div>
+    <div class="section-inner disconnect-inner">
+      <div class="disconnect-header">
+        <div>
+          <div class="signal-icon">
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+          </div>
+          <h2 class="display disconnect-title">Where signal<br>fades,<br><em>life returns.</em></h2>
+        </div>
+        <p class="disconnect-lead">
+          Mobile coverage is sparse. There is no Wi-Fi. The countryside takes over — and depending on who you ask, that is either the only drawback or the greatest feature of all.
+        </p>
+      </div>
+
+      <div class="disconnect-cards">
+        <div class="dc-card">
+          <div class="dc-card-icon"><i class="fa-solid fa-leaf"></i></div>
+          <h3>Nature, Unfiltered</h3>
+          <p>Ancient olive groves, cicadas at dusk, dry earth after a summer storm. The trullo sits in open countryside — the nearest neighbour is a stand of centuries-old olives. No notification competes.</p>
+        </div>
+        <div class="dc-card">
+          <div class="dc-card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <h3>A Real Digital Detox</h3>
+          <p>Mobile signal is, let's say, <em style="color:var(--gold)">optimistic</em>. Calls may require a short walk outside. There is no Wi-Fi. If you need to be unreachable, you have found the right place.</p>
+        </div>
+        <div class="dc-card">
+          <div class="dc-card-icon"><i class="fa-solid fa-star"></i></div>
+          <h3>The Darkest Skies</h3>
+          <p>Zero light pollution means the Milky Way is visible with the naked eye. Lie on the chianca stone of the courtyard and look up. Some things are only possible when you actually switch off.</p>
+        </div>
+      </div>
+
+      <div class="disconnect-note">
+        <i class="fa-solid fa-circle-info"></i>
+        <p><strong>Good to know before you arrive:</strong> Download offline maps (Google Maps or Maps.me), save our number, and let people know you might be hard to reach. The nearest town with strong signal is San Michele Salentino — a few minutes by car.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="galleria" class="section gallery">
+    <div class="section-inner">
+      <div class="gallery-header">
+        <h2 class="display gallery-title">A look<br><em class="serif" style="font-style:italic;color:var(--muted);">inside</em></h2>
+        <p class="gallery-sub">Every corner has been thoughtfully considered — from the stone cones to the renovated bathroom.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="g-cell g-c1">
+          <img src="trullo/piscina_3.avif" alt="Private pool" />
+          <div class="g-cell-label" style="inset-x:0;bottom:0;position:absolute;padding:1rem 1.2rem .8rem;background:linear-gradient(to top,rgba(10,10,15,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,240,232,.85);">The Private Pool</div>
+        </div>
+        <div class="g-cell g-c2">
+          <img src="trullo/camera_1.avif" alt="Main alcove" />
+          <div class="g-cell-label" style="inset-x:0;bottom:0;position:absolute;padding:1rem 1.2rem .8rem;background:linear-gradient(to top,rgba(10,10,15,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,240,232,.85);">Main Alcove</div>
+        </div>
+        <div class="g-cell g-c3">
+          <img src="trullo/hero.jpeg" alt="Courtyard" />
+          <div class="g-cell-label" style="inset-x:0;bottom:0;position:absolute;padding:1rem 1.2rem .8rem;background:linear-gradient(to top,rgba(10,10,15,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,240,232,.85);">Chianca Courtyard</div>
+        </div>
+        <div class="g-cell g-c4">
+          <img src="trullo/camera_3.avif" alt="Bedroom" />
+          <div class="g-cell-label" style="inset-x:0;bottom:0;position:absolute;padding:1rem 1.2rem .8rem;background:linear-gradient(to top,rgba(10,10,15,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,240,232,.85);">Comfort & Tradition</div>
+        </div>
+        <div class="g-cell g-c5">
+          <img src="trullo/bagno_1.avif" alt="Bathroom" />
+          <div class="g-cell-label" style="inset-x:0;bottom:0;position:absolute;padding:1rem 1.2rem .8rem;background:linear-gradient(to top,rgba(10,10,15,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,240,232,.85);">The Bathroom</div>
+        </div>
+      </div>
+
+      <!-- CAROUSEL -->
+      <div class="carousel-wrap">
+        <div class="carousel-label">
+          <span class="label"><i class="fa-solid fa-images"></i>&ensp;Full Album</span>
+          <div class="carousel-rule"></div>
+        </div>
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="cTrack">
+            <div class="carousel-slide"><img src="trullo/hero.jpeg" alt="Welcome" /><div class="slide-caption">Welcome to Trullo Piccirillo</div></div>
+            <div class="carousel-slide"><img src="trullo/ingresso.avif" alt="Entrance" /><div class="slide-caption">The Entrance</div></div>
+            <div class="carousel-slide"><img src="trullo/cortile_1.avif" alt="Courtyard" /><div class="slide-caption">The Chianca Courtyard</div></div>
+            <div class="carousel-slide"><img src="trullo/cortile_2.avif" alt="Relax" /><div class="slide-caption">The Relaxation Corner</div></div>
+            <div class="carousel-slide"><img src="trullo/esterni_2.avif" alt="Cones" /><div class="slide-caption">The Traditional Stone Cones</div></div>
+            <div class="carousel-slide"><img src="trullo/esterni_1.avif" alt="Olive" /><div class="slide-caption">The Private Olive Grove</div></div>
+            <div class="carousel-slide"><img src="trullo/cucina_1.avif" alt="Living" /><div class="slide-caption">The Living Area</div></div>
+            <div class="carousel-slide"><img src="trullo/camera_1.avif" alt="Master alcove" /><div class="slide-caption">The Master Alcove</div></div>
+            <div class="carousel-slide"><img src="trullo/camera_2.avif" alt="Sofa bed" /><div class="slide-caption">Sofa Bed</div></div>
+            <div class="carousel-slide"><img src="trullo/camera_4.jpeg" alt="Second bedroom" /><div class="slide-caption">The Second Bedroom</div></div>
+            <div class="carousel-slide"><img src="trullo/bagno_1.avif" alt="Bathroom" /><div class="slide-caption">The Bathroom</div></div>
+            <div class="carousel-slide"><img src="trullo/cortile_6.avif" alt="Niches" /><div class="slide-caption">Niches & Secrets of the Past</div></div>
+            <div class="carousel-slide"><img src="trullo/cortile_sera_1.avif" alt="Stars" /><div class="slide-caption">Evenings Under the Stars</div></div>
+            <div class="carousel-slide"><img src="trullo/orecchiette.jpeg" alt="Food" /><div class="slide-caption">Iconic Apulian Food</div></div>
+            <div class="carousel-slide"><img src="trullo/piscina_6.jpeg" alt="Pool" /><div class="slide-caption">The Pool</div></div>
+          </div>
+        </div>
+        <div class="carousel-nav">
+          <div class="carousel-dots" id="cDots"></div>
+          <div class="carousel-btns">
+            <button class="c-btn" id="cPrev"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="c-btn" id="cNext"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES -->
+  <section id="servizi" class="section">
+    <div class="section-inner">
+      <div class="amenities-header">
+        <h2 class="display amenities-title">What you'll find<br><em class="serif" style="font-style:italic;color:var(--muted);">during your stay</em></h2>
+        <p class="amenities-sub">Everything included. Nothing superfluous.</p>
+      </div>
+      <div class="amenities-grid">
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+          <h3>Artisan Restoration</h3>
+          <p>Hand-sandblasted original stonework and handcrafted furnishings that honour centuries of Apulian tradition.</p>
+        </div>
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-tree"></i></div>
+          <h3>Private Outdoor Spaces</h3>
+          <p>A generous courtyard for morning breakfasts or a glass of local wine at sunset, surrounded by ancient olives.</p>
+        </div>
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-archway"></i></div>
+          <h3>An Authentic Experience</h3>
+          <p>Sleep beneath a genuine stone cone, lulled by the silence of the countryside. No screen required.</p>
+        </div>
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-person-swimming"></i></div>
+          <h3>Private Pool</h3>
+          <p>Cool off in your own private pool, exclusively reserved for guests of the trullo, all day long.</p>
+        </div>
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-wifi" style="text-decoration:line-through;opacity:.4;"></i>
+            <i class="fa-solid fa-ban" style="margin-left:.3rem;"></i>
+          </div>
+          <h3>No Wi-Fi, No Noise</h3>
+          <p>No Wi-Fi and very limited mobile signal. This is not an oversight — it is part of the experience.</p>
+        </div>
+        <div class="am-card">
+          <div class="am-icon"><i class="fa-solid fa-moon"></i></div>
+          <h3>Stargazing</h3>
+          <p>Zero light pollution. The Milky Way is visible with the naked eye. The best show in Puglia — and it's free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contatti" class="section contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+        <div class="contact-left">
+          <h2 class="display">Ready<br>to<br><em>escape?</em></h2>
+          <p style="margin-top:1.5rem;">We're here to help you plan your stay in San Michele Salentino. Reach out before you lose signal — we'll handle everything else.</p>
+          <div class="contact-cards" style="margin-top:2rem;">
+            <a href="tel:+393334371985" class="contact-card">
+              <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+              <div class="contact-card-meta">
+                <span class="contact-type">Phone</span>
+                <span class="contact-val">+39 333 437 1985</span>
+              </div>
+              <i class="fa-solid fa-arrow-right contact-card-arrow"></i>
+            </a>
+            <a href="mailto:pascadome@hotmail.it" class="contact-card">
+              <div class="contact-card-icon"><i class="fa-regular fa-envelope"></i></div>
+              <div class="contact-card-meta">
+                <span class="contact-type">Email</span>
+                <span class="contact-val">pascadome@hotmail.it</span>
+              </div>
+              <i class="fa-solid fa-arrow-right contact-card-arrow"></i>
+            </a>
+          </div>
+          <a href="https://www.airbnb.it/rooms/8337874?check_in=2026-09-11&check_out=2026-09-13&guests=1&adults=1&s=67&unique_share_id=01592f18-244e-4b0c-a59d-aa28a2523b94" target="_blank" class="contact-airbnb" style="display:flex;align-items:center;gap:1.2rem;padding:1.6rem 1.8rem;text-decoration:none;color:var(--paper);background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.2);margin-top:1px;transition:background .2s;">
+            <i class="fa-solid fa-house" style="color:var(--gold);"></i>
+            <div>
+              <span class="ab-label" style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.2rem;">Bookings</span>
+              <span class="ab-val" style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;">View on Airbnb</span>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="margin-left:auto;color:rgba(200,169,110,.4);"></i>
+          </a>
+        </div>
+
+        <div style="padding-top:1rem;">
+          <p class="label" style="margin-bottom:1.5rem;"><i class="fa-solid fa-location-dot"></i>&ensp;San Michele Salentino, Brindisi, Puglia</p>
+          <div style="background:#111118;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--rule);">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.5!2d17.5716!3d40.6382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347de4b4dc5c3e1%3A0x0!2sSan%20Michele%20Salentino%2C%20BR!5e0!3m2!1sen!2sit!4v1"
+              width="100%" height="100%"
+              style="border:0;display:block;filter:grayscale(1) invert(1) contrast(.8);"
+              allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <p style="margin-top:1rem;font-size:.75rem;color:rgba(245,240,232,.25);line-height:1.6;">
+            <i class="fa-solid fa-circle-info" style="margin-right:.4rem;color:var(--gold);opacity:.6;"></i>
+            Download offline maps before arriving. The nearest town with strong mobile signal is San Michele Salentino, a few minutes by car.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <span class="footer-logo">Trullo Piccirillo</span>
+        <span>&copy; 2026 — All rights reserved</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ── Carousel ── */
+    const track = document.getElementById('cTrack');
+    const dotsEl = document.getElementById('cDots');
+    const slides = Array.from(track.children);
+    let idx = 0, timer;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'c-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => go(i));
+      dotsEl.appendChild(d);
+    });
+    const dots = Array.from(dotsEl.children);
+
+    function go(n) {
+      idx = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      reset();
+    }
+    function reset() { clearInterval(timer); timer = setInterval(() => go(idx + 1), 5000); }
+
+    document.getElementById('cPrev').addEventListener('click', () => go(idx - 1));
+    document.getElementById('cNext').addEventListener('click', () => go(idx + 1));
+    reset();
+  </script>
+</body>
+</html>
